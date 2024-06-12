@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import sys
+import dj_database_url
 from pathlib import Path
 from dotenv import load_dotenv
 from os import getenv, path
@@ -24,6 +26,9 @@ dotenv_file = BASE_DIR / '.env.local'
 # Loads local env while in development only
 if path.isfile(dotenv_file):
     load_dotenv(dotenv_file)
+
+DEVELOPMENT_MODE = getenv('DEVELOPMENT_MODE', 'False') == 'True'
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -51,6 +56,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'social_django',
     'djoser',
+    'storages',
     'users',
     'words'
 ]
@@ -115,6 +121,18 @@ AUTH_COOKIE_HTTP_ONLY = True
 AUTH_COOKIE_PATH = '/'
 AUTH_COOKIE_SAMESITE = 'None'  # Cookies be sent cross-origin
 
+CORS_ALLOWED_ORIGINS = getenv(
+    'CORS_ALLOWED_ORIGINS', 'http://localhost:3000,http://127.0.0.1:3000').split(',')
+CORS_ALLOWED_CREDENTIALS = True
+
+
+# Google OAuth2 Settings
+
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = getenv('GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = getenv('GOOGLE_OAUTH2_SECRET_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
@@ -126,33 +144,24 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = [
     'first_name', 'last_name', 'date_of_birth'
 ]
 
-SOCIAL_AUTH_FACEBOOK_KEY = getenv('FACEBOOK_AUTH_KEY')
-SOCIAL_AUTH_FACEBOOK_SECRET = getenv('FACEBOOK_AUTH_SECRET_KEY')
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
-SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-    'fields': 'email, first_name, last_name, date_of_birth'
-}
-
-CORS_ALLOWED_ORIGINS = getenv(
-    'CORS_ALLOWED_ORIGINS', 'http://localhost:3000,http://127.0.0.1:3000').split(',')
-CORS_ALLOWED_CREDENTIALS = True
-
-AUTHENTICATION_BACKENDS = [
-    'social_core.backends.google.GoogleOAuth2',
-    'social_core.backends.facebook.FacebookOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
-]
-
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEVELOPMENT_MODE is True:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
+    if getenv('DATABASE_URL', None) is None:
+        raise Exception('DATABASE_URL environment variable not defined')
+
+    DATABASES = {
+        'default': dj_database_url.parse(getenv('DATABASE_URL')),
+    }
 
 
 # Email settings
@@ -164,7 +173,7 @@ SITE_NAME = 'Easy Tagalog'
 
 AWS_SES_ACCESS_KEY_ID = getenv('AWS_SES_ACCESS_KEY_ID')
 AWS_SES_SECRET_ACCESS_KEY = getenv('AWS_SES_SECRET_ACCESS_KEY')
-AWS_SES_REGION_NAME = getenv('AWS_SES_REGION_NAME')
+AWS_SES_REGION_NAME = getenv('AWS_REGION_NAME')
 AWS_SES_REGION_ENDPOINT = f'email.{AWS_SES_REGION_NAME}.amazonaws.com'
 AWS_SES_FROM_EMAIL = getenv('AWS_SES_FROM_EMAIL')
 USE_SES_V2 = True
@@ -204,10 +213,32 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'static'
-MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+# AWS is for production
+if DEVELOPMENT_MODE is True:
+    STATIC_URL = 'static/'
+    STATIC_ROOT = BASE_DIR / 'static'
+    MEDIA_URL = 'media/'
+    MEDIA_ROOT = BASE_DIR / 'media'
+else:
+    AWS_STORAGE_BUCKET_NAME = getenv('AWS_STORAGE_BUCKET_NAME')
+    AWS_S3_ACCESS_KEY_ID = getenv('AWS_S3_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = getenv('AWS_SECRET_ACCESS_KEY')
+    AWS_S3_REGION_NAME = getenv('AWS_REGION_NAME')
+    AWS_S3_OBJECT_PARAMETERS = {
+        'CacheControl': 'max-age=86400'  # 86400 seconds == 24 hours
+    }
+    AWS_DEFAULT_ACL = 'public-read'
+    AWS_LOCATION = 'static'
+    AWS_S3_CUSTOM_DOMAIN = getenv('AWS_S3_CUSTOM_DOMAIN')
+
+    STORAGES = {
+        'default': {
+            'BACKEND': 'storages.backends.s3.S3Storage',
+        },
+        'staticfiles': {
+            'BACKEND': 'storages.backends.s3.S3StaticStorage'
+        }
+    }
 
 
 # Default primary key field type
