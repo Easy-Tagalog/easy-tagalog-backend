@@ -5,7 +5,7 @@ from django.contrib.postgres.fields import ArrayField
 
 
 class WordBase(models.Model):
-    english = models.CharField(max_length=35, blank=False)
+    english = ArrayField(models.CharField(max_length=35, blank=False))
     tagalog = models.CharField(max_length=35, blank=False)
     root = models.CharField(max_length=35, blank=False)
     accents = ArrayField(models.IntegerField())
@@ -26,7 +26,12 @@ class Word(WordBase):
         "ART": "article",
         "PART": "particle"
     }
-    part_of_speech = models.CharField(choices=PART_OF_SPEECH_CHOICES, blank=False, max_length=14)
+    part_of_speech = models.CharField(
+        choices=PART_OF_SPEECH_CHOICES, blank=False, max_length=14)
+    irreglar_verb = models.BooleanField(
+        default=False, blank=part_of_speech == ("VERB"), null=True)
+
+    conjugations = models.One
 
 
 class Conjugation(WordBase):
@@ -35,3 +40,4 @@ class Conjugation(WordBase):
         "PRES": "present",
         "FUT": "future"
     }
+    tense = models.CharField(max_length=7, choices=TENSE_CHOICES)

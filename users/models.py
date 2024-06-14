@@ -36,7 +36,7 @@ class UserManager(BaseUserManager):
             **kwargs
         )
 
-        user.is_admin = True
+        user.is_staff = True
         user.is_superuser = True
         user.save(using=self._db)
 
@@ -50,7 +50,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_of_birth = models.DateField()
 
     is_active = models.BooleanField(default=True)
-    is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
 
     objects = UserManager()

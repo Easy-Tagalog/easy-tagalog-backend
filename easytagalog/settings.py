@@ -53,10 +53,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.postgres',
     'rest_framework',
-    'corsheaders',
     'social_django',
-    'djoser',
+    'corsheaders',
     'storages',
+    'djoser',
     'users',
     'words'
 ]
@@ -125,13 +125,13 @@ CORS_ALLOWED_ORIGINS = getenv(
     'CORS_ALLOWED_ORIGINS', 'http://localhost:3000,http://127.0.0.1:3000').split(',')
 CORS_ALLOWED_CREDENTIALS = True
 
-
-# Google OAuth2 Settings
-
 AUTHENTICATION_BACKENDS = [
     'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+
+# Google OAuth2 Settings
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = getenv('GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = getenv('GOOGLE_OAUTH2_SECRET_KEY')
@@ -148,20 +148,31 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = [
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-if DEVELOPMENT_MODE is True:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': getenv('DB_ENGINE'),
+        'NAME': getenv('AWS_RDS_NAME'),
+        'USER': getenv('AWS_RDS_USER'),
+        'PASSWORD': getenv('AWS_RDS_PASSWORD'),
+        'HOST': getenv('AWS_RDS_HOST'),
+        'PORT': getenv('AWS_RDS_PORT')
     }
-elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
-    if getenv('DATABASE_URL', None) is None:
-        raise Exception('DATABASE_URL environment variable not defined')
+}
 
-    DATABASES = {
-        'default': dj_database_url.parse(getenv('DATABASE_URL')),
-    }
+# if DEVELOPMENT_MODE is True:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': BASE_DIR / 'db.sqlite3',
+#         }
+#     }
+# elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
+#     if getenv('DATABASE_URL', None) is None:
+#         raise Exception('DATABASE_URL environment variable not defined')
+
+#     DATABASES = {
+#         'default': dj_database_url.parse(getenv('DATABASE_URL')),
+#     }
 
 
 # Email settings
