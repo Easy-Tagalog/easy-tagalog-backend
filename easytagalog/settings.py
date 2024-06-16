@@ -53,10 +53,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.postgres',
     'rest_framework',
+
     'social_django',
     'corsheaders',
     'storages',
     'djoser',
+
     'users',
     'words'
 ]

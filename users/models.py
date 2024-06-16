@@ -1,7 +1,9 @@
+import uuid
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 
 # Used code snippet from https://docs.djangoproject.com/en/5.0/topics/auth/customizing/
+# Migrations are needed when changing the model
 
 
 class UserManager(BaseUserManager):
@@ -44,10 +46,15 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False)
+
     email = models.EmailField(unique=True, max_length=255)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     date_of_birth = models.DateField()
+
+    date_joined = models.DateTimeField(auto_now_add=True)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -56,6 +63,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+    EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'date_of_birth']
 
     def __str__(self):

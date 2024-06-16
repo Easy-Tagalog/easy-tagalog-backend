@@ -1,3 +1,4 @@
+from django.urls import path, re_path
 from .views import (
     CustomProviderAuthView,
     CustomTokenObtainPairView,
@@ -5,7 +6,6 @@ from .views import (
     CustomTokenVerifyView,
     LogoutView
 )
-from django.urls import path, re_path
 
 
 # These custom views inherit djoser jwt urls classes

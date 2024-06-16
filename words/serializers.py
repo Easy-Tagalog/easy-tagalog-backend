@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from .models import Word
+from .models import Word, Conjugation
 
-class WordSerializer():
-    pass
+# Serializers are for taking a model and converting it to JSON compatible data
