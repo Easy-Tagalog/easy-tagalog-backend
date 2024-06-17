@@ -11,6 +11,8 @@ from .serializers import WordsSerializer
 @authentication_classes([])
 @permission_classes([])
 def words_list(request):
+    """
+    """
 
     if request.method == 'GET':
         words = Word.objects.all()
@@ -18,22 +20,31 @@ def words_list(request):
 
         return Response({
             'data': serializer.data
-        })
+        }, status=status.HTTP_200_OK)
     
     elif request.method == 'POST':
-        serializer = WordsSerializer(data=request.data)
+        # Checks if one or if multiple words are being created
+        is_many = isinstance(request.data, list)
+        serializer = WordsSerializer(data=request.data, many=is_many)
 
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response({
+                    'data': serializer.data 
+                }, status=status.HTTP_201_CREATED)
         
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # Error
+        return Response({
+                'data': serializer.errors
+            }, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET'])
 @authentication_classes([])
 @permission_classes([])
 def word_detail(request, pk):
+    """
+    """
 
     # First check if input primary key exists for a word
     try:
@@ -46,4 +57,4 @@ def word_detail(request, pk):
 
         return Response({
             'data': serializer.data
-        })
+        }, status=status.HTTP_200_OK)
