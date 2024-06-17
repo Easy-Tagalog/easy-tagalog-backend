@@ -1,0 +1,12 @@
+# DJANGO NOTES
+
+Antime you make a new model or make a change to your models, you will need to make a new migration and apply it
+
+python manage.py makemigrations
+python manage.py migrate
+
+This creates the tables in the databases
+
+python manage.py runserver
+python manage.py runserver localhost:8000  # For specifying postgres
+
