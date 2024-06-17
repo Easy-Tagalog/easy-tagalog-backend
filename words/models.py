@@ -6,7 +6,7 @@ from django.contrib.postgres.fields import ArrayField
 # For models, the "id" is already generated
 
 MAX_WORD_LENGTH = 35
-
+MAX_WORD_AUDIO_LENGTH = MAX_WORD_LENGTH + 10
 
 class Word(models.Model):
     NOUN = "N"
@@ -46,7 +46,7 @@ class Word(models.Model):
 
     accents = ArrayField(models.IntegerField())
 
-    audio_url = models.URLField(unique=True, blank=False)
+    audio_url = models.CharField(max_length=MAX_WORD_AUDIO_LENGTH, unique=True, blank=False)
 
     part_of_speech = models.CharField(
         choices=PART_OF_SPEECH_CHOICES, blank=False, max_length=14)
@@ -81,7 +81,7 @@ class Conjugation(models.Model):
     tagalog = models.CharField(
         max_length=MAX_WORD_LENGTH, blank=False)
 
-    audio_url = models.URLField(unique=True, blank=False)
+    audio_url = models.CharField(max_length=MAX_WORD_AUDIO_LENGTH, unique=True, blank=False)
 
     # If verb word is deleted, all conjugations are deleted as well
     word = models.ForeignKey(
