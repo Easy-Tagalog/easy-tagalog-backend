@@ -8,6 +8,7 @@ from django.contrib.postgres.fields import ArrayField
 MAX_WORD_LENGTH = 35
 MAX_WORD_AUDIO_LENGTH = MAX_WORD_LENGTH + 10
 
+
 class Word(models.Model):
     NOUN = "N"
     VERB = "V"
@@ -46,7 +47,8 @@ class Word(models.Model):
 
     accents = ArrayField(models.IntegerField())
 
-    audio_url = models.CharField(max_length=MAX_WORD_AUDIO_LENGTH, unique=True, blank=False)
+    audio_url = models.CharField(
+        max_length=MAX_WORD_AUDIO_LENGTH, unique=True, blank=False)
 
     part_of_speech = models.CharField(
         choices=PART_OF_SPEECH_CHOICES, blank=False, max_length=14)
@@ -81,11 +83,19 @@ class Conjugation(models.Model):
     tagalog = models.CharField(
         max_length=MAX_WORD_LENGTH, blank=False)
 
-    audio_url = models.CharField(max_length=MAX_WORD_AUDIO_LENGTH, unique=True, blank=False)
+    audio_url = models.CharField(
+        max_length=MAX_WORD_AUDIO_LENGTH, unique=True, blank=False)
 
     # If verb word is deleted, all conjugations are deleted as well
     word = models.ForeignKey(
         to=Word, on_delete=models.CASCADE, related_name='conjugations')
+
+    class Meta:
+        # Should only be one of each tense for a verb
+        constraints = [
+            models.UniqueConstraint(
+                fields=['word', 'tense'], name='unique_word_tense')
+        ]
 
     def __str__(self) -> str:
         return self.tagalog
