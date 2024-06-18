@@ -1,8 +1,9 @@
 from django.urls import path, re_path
 
-from .views import words_list, word_detail
+from .views import WordRetrieveUpdateDestroy, WordListCreate
 
 urlpatterns = [
-    path('', words_list, name='words_list'),
-    path('<pk>/', word_detail, name='word_detail')
+    path('', WordListCreate.as_view(), name='word-list-create'),
+    path('<pk>/', WordRetrieveUpdateDestroy.as_view(),
+         name='word-retrieve-update-destroy'),
 ]

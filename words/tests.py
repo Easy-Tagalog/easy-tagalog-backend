@@ -1,3 +1,8 @@
 from django.test import TestCase
+from rest_framework.test import APITestCase
+from .models import Word
 
-# Create your tests here.
+
+class WordTests(APITestCase):
+    def test_create_word(self):
+        pass
