@@ -60,7 +60,8 @@ INSTALLED_APPS = [
     'djoser',
 
     'users',
-    'words'
+    'words',
+    'phrases'
 ]
 
 MIDDLEWARE = [
