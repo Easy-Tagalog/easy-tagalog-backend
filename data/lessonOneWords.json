@@ -1,0 +1,358 @@
+[
+  {
+    "tagalog": "ako",
+    "english": ["I", "me"],
+    "root": "ako",
+    "part_of_speech": "PRON",
+    "accents": [2]
+  },
+  {
+    "tagalog": "ikaw",
+    "english": ["you"],
+    "root": "ikaw",
+    "part_of_speech": "PRON",
+    "note": "Used alone or at the beginning of a sentence",
+    "accents": [2]
+  },
+  {
+    "tagalog": "ka",
+    "english": ["you"],
+    "root": "ka",
+    "part_of_speech": "PRON",
+    "note": "Used within a sentence"
+  },
+  {
+    "tagalog": "siya",
+    "english": ["he", "she", "him", "her", "it"],
+    "root": "siya",
+    "part_of_speech": "PRON",
+    "note": "Gender neutral, sometimes spelled/pronounced \"sya/sha\"",
+    "accents": [3]
+  },
+  {
+    "tagalog": "ko",
+    "english": ["my", "me", "I"],
+    "root": "ko",
+    "part_of_speech": "PRON"
+  },
+  {
+    "tagalog": "mo",
+    "english": ["your", "you"],
+    "root": "mo",
+    "part_of_speech": "PRON"
+  },
+  {
+    "tagalog": "niya",
+    "english": ["his", "her", "hers", "it"],
+    "root": "niya",
+    "part_of_speech": "PRON",
+    "note": "Gender neutral, sometimes spelled \"nya\"",
+    "accents": [3]
+  },
+  {
+    "tagalog": "si",
+    "english": ["Subject marker"],
+    "root": "si",
+    "part_of_speech": "PREP",
+    "note": "Placed before a name"
+  },
+  {
+    "tagalog": "ang",
+    "english": ["the", "so", "very"],
+    "root": "ang",
+    "part_of_speech": "ART"
+  },
+  {
+    "tagalog": "yung",
+    "english": ["the"],
+    "root": "iyon",
+    "part_of_speech": "ART"
+  },
+  {
+    "tagalog": "ano",
+    "english": ["what"],
+    "root": "ano",
+    "part_of_speech": "INTERROG",
+    "accents": [2]
+  },
+  {
+    "tagalog": "sino",
+    "english": ["who"],
+    "root": "sino",
+    "part_of_speech": "INTERROG",
+    "accents": [1]
+  },
+  {
+    "tagalog": "ba",
+    "english": ["Indicates a yes/no question"],
+    "root": "ba",
+    "part_of_speech": "PART"
+  },
+  {
+    "tagalog": "pangalan",
+    "english": ["name"],
+    "root": "ngalan",
+    "part_of_speech": "N",
+    "accents": [4]
+  },
+  {
+    "tagalog": "oo",
+    "english": ["yes"],
+    "root": "oo",
+    "part_of_speech": "ADV",
+    "accents": [0]
+  },
+  {
+    "tagalog": "hindi",
+    "english": ["no", "not", "isn't"],
+    "root": "hindi",
+    "part_of_speech": "ADV",
+    "accents": [4]
+  },
+  {
+    "tagalog": "lalaki",
+    "english": ["man", "male"],
+    "root": "lalaki",
+    "part_of_speech": "N",
+    "accents": [3]
+  },
+  {
+    "tagalog": "babae",
+    "english": ["woman", "female"],
+    "root": "babae",
+    "part_of_speech": "N",
+    "accents": [3]
+  },
+  {
+    "tagalog": "kaibigan",
+    "english": ["friend"],
+    "root": "kaibigan",
+    "part_of_speech": "N",
+    "accents": [4]
+  },
+  {
+    "tagalog": "kumusta",
+    "english": ["how are you", "how is..", "hello"],
+    "root": "kumusta",
+    "part_of_speech": "INTERJ",
+    "accents": [6]
+  },
+  {
+    "tagalog": "mabuti",
+    "english": ["fine", "good", "well"],
+    "root": "buti",
+    "part_of_speech": "ADJ",
+    "accents": [3]
+  },
+  {
+    "tagalog": "sa",
+    "english": ["in", "of", "at", "on"],
+    "root": "sa",
+    "part_of_speech": "PREP"
+  },
+  {
+    "tagalog": "ito",
+    "english": ["this", "it"],
+    "root": "ito",
+    "part_of_speech": "PRON",
+    "note": "Sometimes shortened to \"'to\"",
+    "accents": [2]
+  },
+  {
+    "tagalog": "trabaho",
+    "english": ["job", "work"],
+    "root": "trabaho",
+    "part_of_speech": "N",
+    "accents": [4]
+  },
+  {
+    "tagalog": "estudyante",
+    "english": ["student"],
+    "root": "estudyante",
+    "part_of_speech": "N",
+    "accents": [6]
+  },
+  {
+    "tagalog": "mag-aral",
+    "english": ["to study"],
+    "root": "aral",
+    "part_of_speech": "V",
+    "conjugations": [
+      {
+        "tense": "PAST",
+        "tagalog": "nag-aral",
+        "english": "studied",
+        "accents": [4]
+      },
+      {
+        "tense": "PRES",
+        "tagalog": "nag-aaral",
+        "english": "studying",
+        "accents": [5]
+      },
+      {
+        "tense": "FUT",
+        "tagalog": "mag-aaral",
+        "english": "will study",
+        "accents": [5]
+      }
+    ],
+    "accents": [4]
+  },
+  {
+    "tagalog": "magtrabaho",
+    "english": ["to work"],
+    "root": "trabaho",
+    "part_of_speech": "V",
+    "conjugations": [
+      {
+        "tense": "PAST",
+        "tagalog": "nagtrabaho",
+        "english": "worked",
+        "accents": [7]
+      },
+      {
+        "tense": "PRES",
+        "tagalog": "nagtatrabaho",
+        "english": "working",
+        "accents": [4, 9]
+      },
+      {
+        "tense": "FUT",
+        "tagalog": "magtatrabaho",
+        "english": "will work",
+        "accents": [4, 9]
+      }
+    ],
+    "accents": [7]
+  },
+  {
+    "tagalog": "po",
+    "english": ["sir", "ma'am"],
+    "root": "po",
+    "part_of_speech": "PART",
+    "note": "Used to show respect, typically for elders",
+    "accents": [1]
+  },
+  {
+    "tagalog": "opo",
+    "english": ["yes (polite)", "yes sir", "yes ma'am"],
+    "root": "oo",
+    "part_of_speech": "ADV",
+    "note": "Used to say 'yes' politely, typically for elders",
+    "accents": [0]
+  },
+  {
+    "tagalog": "kayo",
+    "english": ["you (polite)", "you (plural)"],
+    "root": "kayo",
+    "part_of_speech": "PRON",
+    "accents": [3]
+  },
+  {
+    "tagalog": "ninyo",
+    "english": ["your (polite)", "your (plural)"],
+    "root": "ninyo",
+    "part_of_speech": "PRON",
+    "accents": [4]
+  },
+  {
+    "tagalog": "magturo",
+    "english": ["to teach"],
+    "root": "turo",
+    "part_of_speech": "V",
+    "conjugations": [
+      {
+        "tense": "PAST",
+        "tagalog": "nagturo",
+        "english": "taught",
+        "accents": [4]
+      },
+      {
+        "tense": "PRES",
+        "tagalog": "nagtuturo",
+        "english": "teaching",
+        "accents": [6]
+      },
+      {
+        "tense": "FUT",
+        "tagalog": "magtuturo",
+        "english": "will teach",
+        "accents": [6]
+      }
+    ],
+    "accents": [4]
+  },
+  {
+    "tagalog": "ospital",
+    "english": ["hospital"],
+    "root": "ospital",
+    "part_of_speech": "N",
+    "accents": [5]
+  },
+  {
+    "tagalog": "paaralan",
+    "english": ["school"],
+    "root": "aral",
+    "part_of_speech": "N",
+    "accents": [1, 6]
+  },
+  {
+    "tagalog": "maganda",
+    "english": ["beautiful", "good", "pretty"],
+    "root": "ganda",
+    "part_of_speech": "ADJ",
+    "accents": [6]
+  },
+  {
+    "tagalog": "ng",
+    "english": ["of", "a"],
+    "root": "ng",
+    "part_of_speech": "ART",
+    "note": "Also used to conjunct two words together"
+  },
+  {
+    "tagalog": "araw",
+    "english": ["day", "sun"],
+    "root": "araw",
+    "part_of_speech": "N",
+    "accents": [0]
+  },
+  {
+    "tagalog": "tanghali",
+    "english": ["noon", "lunchtime"],
+    "root": "tanghali",
+    "part_of_speech": "N",
+    "accents": [5]
+  },
+  {
+    "tagalog": "hapon",
+    "english": ["afternoon"],
+    "root": "hapon",
+    "part_of_speech": "N",
+    "accents": [1]
+  },
+  {
+    "tagalog": "gabi",
+    "english": ["night"],
+    "root": "gabi",
+    "part_of_speech": "N",
+    "accents": [3]
+  },
+  {
+    "tagalog": "anong",
+    "english": ["what"],
+    "root": "ano",
+    "part_of_speech": "INTERROG",
+    "accents": [2],
+    "note": "ano + ang"
+  },
+  {
+    "tagalog": "magandang",
+    "english": ["beautiful", "good", "pretty"],
+    "root": "ganda",
+    "part_of_speech": "ADJ",
+    "accents": [6],
+    "note": "maganda + ng"
+  }
+]
