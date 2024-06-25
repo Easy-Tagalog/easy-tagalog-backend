@@ -26,8 +26,8 @@ class PhraseWord(models.Model):
     phrase = models.ForeignKey(
         to=Phrase, on_delete=models.CASCADE, related_name='phrase_words')
 
-    word = models.ForeignKey(to=Word, on_delete=models.CASCADE)
-    is_conjugated = models.BooleanField(default=False)
+    word = models.ForeignKey(
+        to=Word, null=True, blank=True, on_delete=models.CASCADE)
     conjugation = models.ForeignKey(
         to=Conjugation, null=True, blank=True, on_delete=models.CASCADE)
 
