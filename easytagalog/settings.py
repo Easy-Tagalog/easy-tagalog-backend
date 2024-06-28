@@ -10,8 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
-import sys
-import dj_database_url
 from pathlib import Path
 from dotenv import load_dotenv
 from os import getenv, path
@@ -60,7 +58,8 @@ INSTALLED_APPS = [
     'djoser',
 
     'users',
-    'words'
+    'words',
+    'phrases'
 ]
 
 MIDDLEWARE = [

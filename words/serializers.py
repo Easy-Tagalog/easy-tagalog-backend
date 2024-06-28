@@ -4,9 +4,7 @@ from .models import Word, Conjugation
 # Serializers are for taking a model and converting it to JSON compatible data
 
 
-class ConjugationsListSerializer(serializers.ModelSerializer):
-    """
-    """
+class ConjugationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Conjugation
         fields = [
@@ -18,10 +16,8 @@ class ConjugationsListSerializer(serializers.ModelSerializer):
         ]
 
 
-class WordsSerializer(serializers.ModelSerializer):
-    """
-    """
-    conjugations = ConjugationsListSerializer(many=True, required=False)
+class WordSerializer(serializers.ModelSerializer):
+    conjugations = ConjugationSerializer(many=True, required=False)
 
     class Meta:
         model = Word
@@ -52,19 +48,19 @@ class WordsSerializer(serializers.ModelSerializer):
 
         # Additional checks for verbs
         if part_of_speech == Word.VERB:
-        
+
             # Check if theres a conjugation field
             if not conjugations:
                 raise serializers.ValidationError({
                     'conjugations': 'This field is required for verbs'
                 })
-        
-            # Check if conjugations has 3
+
+            # Check if conjugations has 3 objects
             if len(conjugations) != 3:
                 raise serializers.ValidationError({
                     'conjugations': 'There must be exactly 3 items in conjugations'
                 })
-            
+
             # Lastly check that theres a present, future, and past
             present, past, present = False, False, False
 
