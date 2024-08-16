@@ -1,5 +1,6 @@
 package org.alouastudios.easytagalogbackend;
 
+import org.alouastudios.easytagalogbackend.word.Word;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -9,6 +10,8 @@ public class EasyTagalogBackendApplication {
 	public static void main(String[] args) {
 
 		SpringApplication.run(EasyTagalogBackendApplication.class, args);
+
+		Word word = new Word();
 	}
 
 }

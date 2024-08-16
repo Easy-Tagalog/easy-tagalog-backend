@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 // @Data annotation includes getters, setters, tostring
@@ -17,20 +19,20 @@ import java.util.List;
 public class Word {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ElementCollection
     @Column(unique = true, nullable = false)
-    private List<String> english;
+    private List<String> english = new ArrayList<String>();
 
-    @Column(nullable = false)
+    @Column(length = 30, nullable = false)
     private String tagalog;
 
     @Column(nullable = false)
     private String root;
 
-    @Column(nullable = false)
-    private List<int> accents;
+    private String accents; // Comma-separated "1,3,5"
 
     @Column(unique = true)
     private String audioUrl;
@@ -44,5 +46,17 @@ public class Word {
     @Transient
     public boolean isVerb() {
         return partOfSpeech == PartOfSpeech.VERB;
+    }
+
+    public List<Integer> getAccents() {
+        String[] accents = this.accents.split(",");
+
+        List<Integer> result = new ArrayList<>();
+
+        for (String accent: accents) {
+            result.add(Integer.parseInt(accent));
+        }
+
+        return result;
     }
 }
