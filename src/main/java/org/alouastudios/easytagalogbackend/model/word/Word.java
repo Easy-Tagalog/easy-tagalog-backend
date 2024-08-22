@@ -1,10 +1,10 @@
 package org.alouastudios.easytagalogbackend.model.word;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.alouastudios.easytagalogbackend.enums.PartOfSpeech;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -26,6 +26,14 @@ public class Word {
     @Column(length = 30, nullable = false)
     private String tagalog;
 
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "word_english",
+            joinColumns = @JoinColumn(name = "word_id"),
+            inverseJoinColumns = @JoinColumn(name = "english_id")
+    )
+    private Set<English> english = new HashSet<>();
+
     @Column(nullable = false)
     private String root;
 
@@ -35,7 +43,7 @@ public class Word {
     @Column(nullable = false)
     private PartOfSpeech partOfSpeech;
 
-    private String alternateSpelling; // ex: siya == sya
+    private String alternateSpelling; // ex: siya could be sya
 
     private Boolean isIrregularVerb;
 
