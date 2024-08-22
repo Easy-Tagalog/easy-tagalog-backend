@@ -47,8 +47,6 @@ public class WordController {
 
     @GetMapping("/load")
     public String loadWords() {
-        wordService.load();
-
         return "Successfully Loaded Words";
     }
 }

@@ -1,12 +1,9 @@
 package org.alouastudios.easytagalogbackend.model.word;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.alouastudios.easytagalogbackend.enums.Tense;
 
 import java.util.Objects;
