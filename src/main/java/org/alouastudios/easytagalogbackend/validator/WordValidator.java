@@ -1,11 +1,8 @@
 package org.alouastudios.easytagalogbackend.validator;
 
 import org.alouastudios.easytagalogbackend.dto.word.WordRequestDTO;
-import org.alouastudios.easytagalogbackend.enums.Tense;
+import org.alouastudios.easytagalogbackend.enums.Aspect;
 import org.alouastudios.easytagalogbackend.model.words.Conjugation;
-import org.alouastudios.easytagalogbackend.model.words.English;
-import org.alouastudios.easytagalogbackend.model.words.Word;
-import org.alouastudios.easytagalogbackend.repository.EnglishRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -33,16 +30,16 @@ public class WordValidator {
 
         // Check user provided PAST, PRESENT, FUTURE tenses
 
-        boolean past = false, present = false, future = false;
+        boolean completed = false, uncompleted = false, contemplated = false;
         for (Conjugation c : word.conjugations()) {
-            if (c.getTense() == Tense.PAST) past = true;
-            if (c.getTense() == Tense.PRESENT) present = true;
-            if (c.getTense() == Tense.FUTURE) future = true;
+            if (c.getAspect() == Aspect.COMPLETED) completed = true;
+            if (c.getAspect() == Aspect.UNCOMPLETED) uncompleted = true;
+            if (c.getAspect() == Aspect.CONTEMPLATED) contemplated = true;
         }
 
-        if (!past) throw new RuntimeException("Verb missing past conjugation");
-        if (!present) throw new RuntimeException("Verb missing present conjugation");
-        if (!future) throw new RuntimeException("Verb missing future conjugation");
+        if (!completed) throw new RuntimeException("Verb missing past conjugation");
+        if (!uncompleted) throw new RuntimeException("Verb missing present conjugation");
+        if (!contemplated) throw new RuntimeException("Verb missing future conjugation");
     }
 
     // TODO: DELETE WHEN ABSOLUTELY DONT NEED

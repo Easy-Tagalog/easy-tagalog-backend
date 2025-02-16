@@ -91,8 +91,7 @@ public class WordMapper {
                 conjugation.getRoot(),
                 ServiceUtil.convertStringToAccentArray(conjugation.getAccents()),
                 conjugation.getAudioUrl(),
-                conjugation.getEnglish(),
-                conjugation.getTense()
+                conjugation.getAspect()
         );
     }
 

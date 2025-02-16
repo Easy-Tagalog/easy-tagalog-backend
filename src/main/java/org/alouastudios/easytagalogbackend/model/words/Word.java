@@ -3,8 +3,8 @@ package org.alouastudios.easytagalogbackend.model.words;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.alouastudios.easytagalogbackend.enums.Aspect;
 import org.alouastudios.easytagalogbackend.enums.PartOfSpeech;
-import org.alouastudios.easytagalogbackend.enums.Tense;
 import org.alouastudios.easytagalogbackend.exception.ResourceNotFoundException;
 import org.alouastudios.easytagalogbackend.model.phrases.Phrase;
 
@@ -68,12 +68,12 @@ public class Word {
     }
 
     @Transient
-    public Conjugation getConjugation(Tense tense) {
+    public Conjugation getConjugation(Aspect aspect) {
         return conjugations.stream()
-                .filter(conjugation -> conjugation.getTense().equals(tense))
+                .filter(conjugation -> conjugation.getAspect().equals(aspect))
                 .findFirst()
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "No conjugation found for " + tagalog + " with tense: " + tense
+                        "No conjugation found for " + tagalog + " with tense: " + aspect
                 ));
     }
 
@@ -85,5 +85,15 @@ public class Word {
             }
         }
         return false;
+    }
+
+    @Transient
+    public Translation getTranslation(PartOfSpeech partOfSpeech) {
+        for (Translation translation : translations) {
+            if (translation.getPartOfSpeech().equals(partOfSpeech)) {
+                return translation;
+            }
+        }
+        return null;
     }
 }

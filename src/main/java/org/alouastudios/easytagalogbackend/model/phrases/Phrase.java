@@ -2,10 +2,13 @@ package org.alouastudios.easytagalogbackend.model.phrases;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.alouastudios.easytagalogbackend.model.words.Word;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -13,6 +16,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name = "phrases")
+@ToString(exclude = "words")
+@EqualsAndHashCode(exclude = "words")
 public class Phrase {
 
     @Id
@@ -30,6 +35,9 @@ public class Phrase {
     @Column(nullable = false)
     private Boolean isQuestion = false;
 
+    @Column(nullable = true)
+    private String note;
+
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "phrase_words",
@@ -38,43 +46,15 @@ public class Phrase {
     )
     private Set<Word> words;
 
-    @Column(nullable = false, unique = true)
-    private String phraseWordMeanings; // ex: "I,name marker,<name>"
+    @ElementCollection
+    @CollectionTable(name = "phrase_word_meanings", joinColumns = @JoinColumn(name = "phrase_id"))
+    @Column(name = "meaning")
+    private List<String> phraseWordMeanings = new ArrayList<>();
 
     @PrePersist
     public void generateUUID() {
         if (uuid == null) {
             uuid = UUID.randomUUID();
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Phrase{" +
-                "id=" + id +
-                ", uuid='" + uuid + '\'' +
-                ", tagalog='" + tagalog + '\'' +
-                ", english='" + english + '\'' +
-                ", isQuestion=" + isQuestion +
-                ", phraseWordMeanings='" + phraseWordMeanings + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Phrase phrase = (Phrase) o;
-        return Objects.equals(id, phrase.id) &&
-                Objects.equals(uuid, phrase.uuid) &&
-                Objects.equals(tagalog, phrase.tagalog) &&
-                Objects.equals(english, phrase.english) &&
-                Objects.equals(isQuestion, phrase.isQuestion) &&
-                Objects.equals(phraseWordMeanings, phrase.phraseWordMeanings);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, uuid, tagalog, english, isQuestion, phraseWordMeanings);
     }
 }

@@ -1,10 +1,8 @@
 package org.alouastudios.easytagalogbackend.util;
 
 import lombok.experimental.UtilityClass;
-import org.alouastudios.easytagalogbackend.enums.Tense;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @UtilityClass

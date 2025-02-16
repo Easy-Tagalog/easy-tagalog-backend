@@ -18,6 +18,9 @@ public class LinkedWord {
     @Column(unique = true, nullable = false)
     private String tagalog;
 
+    @Column(nullable = false)
+    private String note; // Must specify the words combined (Ex: ano + ang)
+
     @Column(unique = true)
     private String audioUrl;
 

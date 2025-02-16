@@ -6,14 +6,17 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.alouastudios.easytagalogbackend.enums.Tense;
+import org.alouastudios.easytagalogbackend.enums.Aspect;
 
 @Data
 @NoArgsConstructor
 @Entity
 @Table(
         name = "conjugations",
-        uniqueConstraints = { @UniqueConstraint(name = "UniqueVerbConjugation", columnNames = {"word_id", "tense"})}
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "UniqueVerbConjugation", columnNames = {"word_id", "aspect"})
+        }
 )
 @ToString(exclude = "word")
 @EqualsAndHashCode(exclude = "word")
@@ -34,12 +37,9 @@ public class Conjugation {
     @Column(unique = true)
     private String audioUrl;
 
-    @Column(nullable = false)
-    private String english; // Not using english entity since verb tense has one meaning
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Tense tense;
+    private Aspect aspect;
 
     @ManyToOne
     @JoinColumn(name = "word_id")

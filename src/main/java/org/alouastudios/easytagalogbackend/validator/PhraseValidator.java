@@ -25,12 +25,12 @@ public class PhraseValidator {
             throw new RuntimeException("WordIds cannot be null or empty");
         }
 
-        if (Objects.isNull(phrase.phraseWordGuides())) {
+        if (Objects.isNull(phrase.phraseWordRequestDTOS())) {
             throw new RuntimeException("Phrase word guides cannot be null");
         }
 
         // There should be a meaning for each word of the phrase (even names)
-        if (phrase.tagalog().split(" ").length != phrase.phraseWordGuides().size()) {
+        if (phrase.tagalog().split(" ").length != phrase.phraseWordRequestDTOS().size()) {
             throw new RuntimeException("Phrase word guide length doesn't match the number of words in the phrase");
         }
     }
